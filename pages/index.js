@@ -45,7 +45,7 @@ const darkTheme = createMuiTheme({
 
 const FetchData = () => {
   const identifyUAApi = !isServer
-    ? `http://api.userstack.com/detect?access_key=01ebd9c577763f1efbff8739fe93026f&ua=${navigator.userAgent}`
+    ? `https://api.userstack.com/detect?access_key=01ebd9c577763f1efbff8739fe93026f&ua=${navigator.userAgent}`
     : null;
 
   console.log(identifyUAApi);
