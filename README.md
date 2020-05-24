@@ -8,6 +8,12 @@ _Early stage, expect bugs_
 
 This project aspires to be the `caniuse` of in-app browsers
 
+## Testing
+You are just testing the functionality,  Share this URL 
+either privately or publically! 
+
+https://inapptest.now.sh/ 
+
 ## Getting Started
 
 First, run the development server:
@@ -44,3 +50,6 @@ Share the URL to Facebook or Google app ( private mode) - This runs all moderniz
 ## Contributing 
 Raise a pull request
 
+## Utilizes
+1. Nextjs
+2. Userstack
