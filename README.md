@@ -2,7 +2,9 @@
 
 ## In-App Browser tests
 
-This is a initial commit of the 
+This is a initial commit testing In-app browser capabilities. In-app browsers open browser windows within an external app - e.g: Facebook or Google app. They disable certain functionalities but till date there isn't a resource to tell you what is exactly disabled or does work properly.
+
+This project aspires to be the `caniuse` of in-app browsers
 
 ## Getting Started
 
