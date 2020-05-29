@@ -8,6 +8,7 @@ import fetcher from "../lib/fetch";
 import useSWR from "swr";
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import Paper from "@material-ui/core/Paper";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -44,7 +45,19 @@ const isServer = typeof window === "undefined";
 const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
-  },
+      primary: {
+        light: '#37474f',
+        main: '#62727b',
+        dark: '#102027',
+        contrastText: '#ffffff',
+      },
+      secondary: {
+        light: '#707474',
+        main: '#454949',
+        dark: '#1e2222',
+        contrastText: '#ffffff',
+      },
+    },
 });
 
 const FetchData = () => {
@@ -56,6 +69,7 @@ const FetchData = () => {
   const useStyles = makeStyles({
     root: {
       width: "100%",
+      backgroundColor:'#1c1c1c',
     },
     formStyles: {
       width: "90%",
@@ -71,17 +85,15 @@ const FetchData = () => {
 
   return (
     <>
-      <Card className={classes.root}>
+    <ThemeProvider theme={darkTheme}>
+      <Card >
         <CardActionArea>
           <CardMedia
           className = {classes.MuiCardMediaimg}
-            component="img"
+            component={'img'}
             alt={data.os.engine}
-            height="140"
             image={data.os.icon_large}
             title={data.os.engine}
-            width="100px"
-            maxWidth="100px"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
@@ -89,12 +101,14 @@ const FetchData = () => {
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Your browser is {data.type}
+              Your browser policy is {Document.featurePolicy}
             </Typography>
           </CardContent>
         </CardActionArea>
         
       </Card>
-      <form noValidate autoComplete="off">
+      <Paper elevation={3}>
+            <form noValidate autoComplete="off">
         <h2> Incorrect? </h2> <br />
         <TextareaAutosize
           rowsMax={4}
@@ -108,7 +122,9 @@ const FetchData = () => {
           Submit your user-agent
         </Button>
       </form>
+      </Paper>
       <div>{/* {JSON.stringify(data)} */}</div>
+      </ThemeProvider>
     </>
   );
 };
@@ -189,7 +205,8 @@ export default function Home() {
               </Suspense>
             ) : null}
           </main>
-          <ul className="root">
+          <Paper elevation={3}>
+          <ul className="featureList">
             <li className="MessageChannel">MessageChannel</li>
             <li className="adownload">adownload</li>
             <li className="ambientlight">ambientlight</li>
@@ -493,917 +510,1225 @@ export default function Home() {
             <li className="testprop">testprop</li>
             <li className="teststyles">teststyles</li>
           </ul>
+          </Paper>
           `
           <style jsx>{`
-            ul {
+             :global(ul.featureList) {
               -webkit-column-count: 3;
               -moz-column-count: 3;
               column-count: 3;
             }
-            li {
-              color: green;
+            :global(ul.featureList li) {
+              margin: 0;
+              padding: 10px 0 16px 28px;
+              list-style: none;
+              background-image: url("https://s.w.org/images/core/emoji/11/svg/2705.svg");
+              background-repeat: no-repeat;
+              background-position: left center;
+              background-size: 20px;     
+              color: #a6e22e;
+            
             }
             :global(.no-MessageChannel li.MessageChannel) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")    
             }
             :global(.no-adownload li.adownload) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-ambientlight li.ambientlight) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg") 
             }
             :global(.no-animation li.animation) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-apng li.apng) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-appearance li.appearance) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-applicationcache li.applicationcache) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-arrow li.arrow) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-atobbtoa li.atobbtoa) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-audio li.audio) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-audioloop li.audioloop) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-audiopreload li.audiopreload) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-backdropfilter li.backdropfilter) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-backgroundblendmode li.backgroundblendmode) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-backgroundcliptext li.backgroundcliptext) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-backgroundsize li.backgroundsize) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-batteryapi li.batteryapi) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-bdi li.bdi) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-beacon li.beacon) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-bgpositionshorthand li.bgpositionshorthand) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-bgpositionxy li.bgpositionxy) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-bgrepeatspace li.bgrepeatspace) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-bgrepeatround li.bgrepeatround) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-bgsizecover li.bgsizecover) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-blobconstructor li.blobconstructor) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-bloburls li.bloburls) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-blobworkers li.blobworkers) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-borderimage li.borderimage) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-borderradius li.borderradius) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-boxshadow li.boxshadow) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-boxsizing li.boxsizing) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-canvas li.canvas) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-canvasblending li.canvasblending) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-canvastext li.canvastext) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-canvaswinding li.canvaswinding) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-capture li.capture) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-checked li.checked) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-classlist li.classlist) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-contains li.contains) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-contenteditable li.contenteditable) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-contextmenu li.contextmenu) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cookies li.cookies) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cors li.cors) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-createelementattrs li.createelementattrs) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-createelement li.createelement) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-attrs li.attrs) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cryptography li.cryptography) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssall li.cssall) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssanimations li.cssanimations) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csscalc li.csscalc) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csschunit li.csschunit) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csscolumns li.csscolumns) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssescape li.cssescape) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssexunit li.cssexunit) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssfilters li.cssfilters) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssgradients li.cssgradients) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssgrid li.cssgrid) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssgridlegacy li.cssgridlegacy) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csshyphens li.csshyphens) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-softhyphens li.softhyphens) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-softhyphensfind li.softhyphensfind) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssinvalid li.cssinvalid) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssmask li.cssmask) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csspointerevents li.csspointerevents) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csspositionsticky li.csspositionsticky) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csspseudoanimations li.csspseudoanimations) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csspseudotransitions li.csspseudotransitions) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssreflections li.cssreflections) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssremunit li.cssremunit) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssresize li.cssresize) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssscrollbar li.cssscrollbar) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csstransforms li.csstransforms) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csstransforms3d li.csstransforms3d) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csstransformslevel2 li.csstransformslevel2) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-csstransitions li.csstransitions) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssvalid li.cssvalid) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssvhunit li.cssvhunit) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssvmaxunit li.cssvmaxunit) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssvminunit li.cssvminunit) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cssvwunit li.cssvwunit) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-cubicbezierrange li.cubicbezierrange) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-customelements li.customelements) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-customevent li.customevent) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-customprotocolhandler li.customprotocolhandler) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-dart li.dart) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-datachannel li.datachannel) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-datalistelem li.datalistelem) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-dataset li.dataset) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-datauri li.datauri) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-dataview li.dataview) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-dataworkers li.dataworkers) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-details li.details) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-devicemotion li.devicemotion) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-deviceorientation li.deviceorientation) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-directory li.directory) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-display li.display) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-runin li.runin) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-displaytable li.displaytable) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-documentfragment li.documentfragment) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-ellipsis li.ellipsis) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-emoji li.emoji) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es5 li.es5) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es5array li.es5array) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es5date li.es5date) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es5function li.es5function) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es5object li.es5object) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es5string li.es5string) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es5syntax li.es5syntax) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es5undefined li.es5undefined) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es6array li.es6array) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es6collections li.es6collections) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es6math li.es6math) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es6number li.es6number) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es6object li.es6object) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-es6string li.es6string) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-eventlistener li.eventlistener) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-eventsource li.eventsource) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-exiforientation li.exiforientation) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-fetch li.fetch) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-fileinput li.fileinput) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-filereader li.filereader) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-filesystem li.filesystem) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-flash li.flash) {
-              color: red !important;
+              color: #f48fb1 !important;
             }
             :global(.no-flexbox li.flexbox) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-flexboxlegacy li.flexboxlegacy) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-flexboxtweener li.flexboxtweener) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-flexwrap li.flexwrap) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-focuswithin li.focuswithin) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-fontface li.fontface) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-forcetouch li.forcetouch) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-formattribute li.formattribute) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-formvalidation li.formvalidation) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-framed li.framed) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-fullscreen li.fullscreen) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-gamepads li.gamepads) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-generatedcontent li.generatedcontent) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-generators li.generators) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-geolocation li.geolocation) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-getrandomvalues li.getrandomvalues) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-getusermedia li.getusermedia) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-hairline li.hairline) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-hashchange li.hashchange) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-hidden li.hidden) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-hiddenscroll li.hiddenscroll) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-history li.history) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-hovermq li.hovermq) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-hsla li.hsla) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-htmlimports li.htmlimports) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-ie8compat li.ie8compat) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-imgcrossorigin li.imgcrossorigin) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-indexeddb li.indexeddb) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-indexeddbblob li.indexeddbblob) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-inlinesvg li.inlinesvg) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-input li.input) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-inputformaction li.inputformaction) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-inputformenctype li.inputformenctype) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-inputformmethod li.inputformmethod) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-inputformtarget li.inputformtarget) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-inputtypes li.inputtypes) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-intl li.intl) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-jpeg2000 li.jpeg2000) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-jpegxr li.jpegxr) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-json li.json) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-lastchild li.lastchild) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-ligatures li.ligatures) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-localizednumber li.localizednumber) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-localstorage li.localstorage) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-lowbandwidth li.lowbandwidth) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-lowbattery li.lowbattery) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-matchmedia li.matchmedia) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-mathml li.mathml) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-mediaqueries li.mediaqueries) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-microdata li.microdata) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-multiplebgs li.multiplebgs) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-mutationobserver li.mutationobserver) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-notification li.notification) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-nthchild li.nthchild) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-objectfit li.objectfit) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-olreversed li.olreversed) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-oninput li.oninput) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-opacity li.opacity) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-outputelem li.outputelem) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-overflowscrolling li.overflowscrolling) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-pagevisibility li.pagevisibility) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-passiveeventlisteners li.passiveeventlisteners) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-peerconnection li.peerconnection) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-performance li.performance) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-picture li.picture) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-placeholder li.placeholder) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-pointerevents li.pointerevents) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-pointerlock li.pointerlock) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-pointermq li.pointermq) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-postmessage li.postmessage) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-preserve3d li.preserve3d) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-progressbar li.progressbar) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-meter li.meter) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-promises li.promises) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-proximity li.proximity) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-queryselector li.queryselector) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-quotamanagement li.quotamanagement) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-regions li.regions) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-requestanimationframe li.requestanimationframe) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-requestautocomplete li.requestautocomplete) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-rgba li.rgba) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-ruby li.ruby) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-sandbox li.sandbox) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-scriptasync li.scriptasync) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-scriptdefer li.scriptdefer) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-scrollsnappoints li.scrollsnappoints) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-seamless li.seamless) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-search li.search) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-serviceworker li.serviceworker) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-sessionstorage li.sessionstorage) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-shapes li.shapes) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-sharedworkers li.sharedworkers) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-siblinggeneral li.siblinggeneral) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-sizes li.sizes) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-smil li.smil) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-speechrecognition li.speechrecognition) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-speechsynthesis li.speechsynthesis) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-srcdoc li.srcdoc) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-srcset li.srcset) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-strictmode li.strictmode) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-stylescoped li.stylescoped) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-subpixelfont li.subpixelfont) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-supports li.supports) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-svg li.svg) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-svgasimg li.svgasimg) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-svgclippaths li.svgclippaths) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-svgfilters li.svgfilters) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-svgforeignobject li.svgforeignobject) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-target li.target) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-template li.template) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-templatestrings li.templatestrings) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-textalignlast li.textalignlast) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-textareamaxlength li.textareamaxlength) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-textshadow li.textshadow) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-texttrackapi li.texttrackapi) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-track li.track) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-time li.time) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-todataurljpeg li.todataurljpeg) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-todataurlpng li.todataurlpng) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-todataurlwebp li.todataurlwebp) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-touchevents li.touchevents) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-transferables li.transferables) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-typedarrays li.typedarrays) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-unicode li.unicode) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-unicoderange li.unicoderange) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-unknownelements li.unknownelements) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-urlparser li.urlparser) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-urlsearchparams li.urlsearchparams) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-userdata li.userdata) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-userselect li.userselect) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-variablefonts li.variablefonts) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-vibrate li.vibrate) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-video li.video) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-videoautoplay li.videoautoplay) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-videocrossorigin li.videocrossorigin) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-videoloop li.videoloop) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-videopreload li.videopreload) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-vml li.vml) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webaudio li.webaudio) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webgl li.webgl) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webglextensions li.webglextensions) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webintents li.webintents) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webp li.webp) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webpalpha li.webpalpha) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webpanimation li.webpanimation) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webplossless li.webplossless) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webp li.webp) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-lossless li.lossless) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-websockets li.websockets) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-websocketsbinary li.websocketsbinary) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-websqldatabase li.websqldatabase) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-webworkers li.webworkers) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-willchange li.willchange) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-wrapflow li.wrapflow) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-xdomainrequest li.xdomainrequest) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-xhr2 li.xhr2) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-xhrresponsetype li.xhrresponsetype) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-xhrresponsetypearraybuffer
                 li.xhrresponsetypearraybuffer) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-xhrresponsetypeblob li.xhrresponsetypeblob) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-xhrresponsetypedocument li.xhrresponsetypedocument) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-xhrresponsetypejson li.xhrresponsetypejson) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-xhrresponsetypetext li.xhrresponsetypetext) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-addtest li.addtest) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-atrule li.atrule) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-domprefixes li.domprefixes) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-hasevent li.hasevent) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-mq li.mq) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-prefixed li.prefixed) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-prefixedcss li.prefixedcss) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-prefixedcssvalue li.prefixedcssvalue) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-prefixes li.prefixes) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-setclasses li.setclasses) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-shiv li.shiv) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-testallprops li.testallprops) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-testprop li.testprop) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global(.no-teststyles li.teststyles) {
-              color: red;
+              color:#f48fb1; 
+background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
             :global( .MuiCardMediaimg ){
               
-                width:300px;
+                object-fit:none !important;
+                height:50px !important;
               
             }
           `}</style>
@@ -1415,7 +1740,8 @@ export default function Home() {
               font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
                 Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
                 sans-serif;
-                background-color:#fefefe;
+                background-color:#333;
+                
             }
 
             * {
