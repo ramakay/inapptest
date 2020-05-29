@@ -184,7 +184,7 @@ export default function Home() {
             <link rel="icon" href="/favicon.ico" />
             <link
               rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+              href="https://fonts.googleapis.com/css2?family=Raleway&display=swap"
             />
             <link
               rel="stylesheet"
@@ -517,6 +517,7 @@ export default function Home() {
               -webkit-column-count: 3;
               -moz-column-count: 3;
               column-count: 3;
+              padding:10px;
             }
             :global(ul.featureList li) {
               margin: 0;
@@ -1737,7 +1738,7 @@ background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             body {
               padding: 0;
               margin: 0;
-              font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+              font-family: Raleway,-apple-system, BlinkMacSystemFont, Segoe UI,
                 Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
                 sans-serif;
                 background-color:#333;
