@@ -13,6 +13,8 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -87,11 +89,12 @@ const FetchData = () => {
       color:"#fff",
       backgroundColor:'#1c1c1c',
       width:'100%',
-      fontSize:'16px',
+      fontSize:darkTheme.typography.pxToRem(13),
       padding:'10px'
     },
     typographyStyles: {
-      fontfamily:"Barlow" ,
+      fontfamily:"Barlow",
+      fontSize:darkTheme.typography.pxToRem(15),
     },
     MuiCardMediaimg: {
       width:"auto",
@@ -106,7 +109,8 @@ const FetchData = () => {
     <>
     <ThemeProvider theme={darkTheme}>
     <ThemeProvider theme={lightTheme}>
-    <Paper elevation={3}>
+    <Box mb={2.5}>
+    <Paper boxShadow={25} elevation={10}>
 
       <Card >
         <CardActionArea>
@@ -122,19 +126,26 @@ const FetchData = () => {
               {data.browser.name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Your browser is {data.type}
+            {data.type? 
+              `Your browser is ${data.type}`
+             : null
+             }
+              
             </Typography>
           </CardContent>
         </CardActionArea>
         
       </Card>
      </Paper>
+     </Box>
       </ThemeProvider>
       <Paper elevation={3}>
             <form noValidate autoComplete="off">
-        <h2> Incorrect? </h2> <br />
+            <Typography gutterBottom variant="h5" component="h2">
+              Incorrect?
+            </Typography> 
         <TextareaAutosize
-          rowsMax={1}
+          rowsMax={5}
           className={classes.uaTextArea}
           id="standard-basic"
           label="Standard"
@@ -221,8 +232,12 @@ export default function Home() {
                 <FetchData></FetchData>
               </Suspense>
             ) : null}
-            
-            <Typography gutterBottom variant="h5" component="h2">
+       
+          </Paper>
+          <Box mb={2.5} mt={2.5} pb={2.5}>
+          <Paper elevation={3} m={0.5}>
+
+            <Typography gutterBottom variant="h5"  component="h2">
               Additional Tests: Local Storage
             </Typography>
             {!isServer ? (
@@ -230,7 +245,8 @@ export default function Home() {
                 <CheckLocalStorage></CheckLocalStorage>
               </Suspense>
             ) : null}
-          </Paper>
+            </Paper>
+            </Box>
           <Paper elevation={3} m={0.5}>
           <Typography gutterBottom variant="h5" component="h2">
               Supported Features
