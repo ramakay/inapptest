@@ -18,9 +18,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { createMuiTheme } from "@material-ui/core/styles";
 import CardHeader from '@material-ui/core/CardHeader';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
 
 /* TODO
-  1. Format into  tests/modules
+  1. Format into  /modules
   2. Constants
 */
 
@@ -43,6 +45,7 @@ const dateFormat = () => {
 
 /* util/themes */
 const isServer = typeof window === "undefined";
+const lightTheme = createMuiTheme();
 const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
@@ -87,6 +90,13 @@ const FetchData = () => {
       fontSize:'16px',
       padding:'10px'
     },
+    typographyStyles: {
+      fontfamily:"Barlow" ,
+    },
+    MuiCardMediaimg: {
+      width:"auto",
+      height:"96px"
+    }
    
   });
   const classes = useStyles();
@@ -95,6 +105,9 @@ const FetchData = () => {
   return (
     <>
     <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={lightTheme}>
+    <Paper elevation={3}>
+
       <Card >
         <CardActionArea>
           <CardMedia
@@ -115,12 +128,13 @@ const FetchData = () => {
         </CardActionArea>
         
       </Card>
+     </Paper>
+      </ThemeProvider>
       <Paper elevation={3}>
             <form noValidate autoComplete="off">
         <h2> Incorrect? </h2> <br />
         <TextareaAutosize
-          rowsMax={2}
-          rowsMin={5}
+          rowsMax={1}
           className={classes.uaTextArea}
           id="standard-basic"
           label="Standard"
@@ -1742,12 +1756,7 @@ background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
               color:#f48fb1; 
 background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             }
-            :global( .MuiCardMediaimg ){
-              
-                object-fit:none !important;
-                height:50px !important;
-              
-            }
+
           `}</style>
           <style jsx global>{`
             html,
