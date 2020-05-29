@@ -19,7 +19,6 @@ import Typography from "@material-ui/core/Typography";
 import { createMuiTheme } from "@material-ui/core/styles";
 import CardHeader from '@material-ui/core/CardHeader';
 
-
 /* TODO
   1. Format into  tests/modules
   2. Constants
@@ -72,6 +71,7 @@ const FetchData = () => {
     root: {
       width: "100%",
       backgroundColor:'#1c1c1c',
+      
     },
     formStyles: {
       width: "90%",
@@ -79,6 +79,13 @@ const FetchData = () => {
     },
     cardStyles: {
       maxWidth: 345,
+    },
+    uaTextArea: {
+      color:"#fff",
+      backgroundColor:'#1c1c1c',
+      width:'100%',
+      fontSize:'16px',
+      padding:'10px'
     },
    
   });
@@ -103,7 +110,6 @@ const FetchData = () => {
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Your browser is {data.type}
-              Your browser policy is {Document.featurePolicy}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -113,9 +119,9 @@ const FetchData = () => {
             <form noValidate autoComplete="off">
         <h2> Incorrect? </h2> <br />
         <TextareaAutosize
-          rowsMax={4}
-          rowsMin={10}
-          className={classes.root}
+          rowsMax={2}
+          rowsMin={5}
+          className={classes.uaTextArea}
           id="standard-basic"
           label="Standard"
           value={data.ua}
@@ -194,21 +200,27 @@ export default function Home() {
             />
             {bootstrap()}
           </Head>
-          <main>
+          <Paper elevation={3} m={0.5} variant="outlined">
+        
             {!isServer ? (
               <Suspense fallback={<div>loading...</div>}>
                 <FetchData></FetchData>
               </Suspense>
             ) : null}
-
+            
+            <Typography gutterBottom variant="h5" component="h2">
+              Additional Tests: Local Storage
+            </Typography>
             {!isServer ? (
               <Suspense fallback={<div>loading...</div>}>
                 <CheckLocalStorage></CheckLocalStorage>
               </Suspense>
             ) : null}
-          </main>
-          <Paper elevation={3}>
-            <CardHeader>Hi</CardHeader>
+          </Paper>
+          <Paper elevation={3} m={0.5}>
+          <Typography gutterBottom variant="h5" component="h2">
+              Supported Features
+            </Typography>
           <ul className="featureList">
             <li className="MessageChannel">MessageChannel</li>
             <li className="adownload">adownload</li>
@@ -521,6 +533,7 @@ export default function Home() {
               -moz-column-count: 3;
               column-count: 3;
               padding:10px;
+              font-size:0.5 rem;
             }
             :global(ul.featureList li) {
               margin: 0;
@@ -530,7 +543,7 @@ export default function Home() {
               background-repeat: no-repeat;
               background-position: left center;
               background-size: 20px;     
-              color: #a6e22e;
+              color: #8dc891;
             
             }
             :global(.no-MessageChannel li.MessageChannel) {
