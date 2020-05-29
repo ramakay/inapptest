@@ -17,6 +17,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { createMuiTheme } from "@material-ui/core/styles";
+import CardHeader from '@material-ui/core/CardHeader';
+
 
 /* TODO
   1. Format into  tests/modules
@@ -184,7 +186,7 @@ export default function Home() {
             <link rel="icon" href="/favicon.ico" />
             <link
               rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Raleway&display=swap"
+              href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&&display=swap"
             />
             <link
               rel="stylesheet"
@@ -206,6 +208,7 @@ export default function Home() {
             ) : null}
           </main>
           <Paper elevation={3}>
+            <CardHeader>Hi</CardHeader>
           <ul className="featureList">
             <li className="MessageChannel">MessageChannel</li>
             <li className="adownload">adownload</li>
@@ -1738,7 +1741,7 @@ background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
             body {
               padding: 0;
               margin: 0;
-              font-family: Raleway,-apple-system, BlinkMacSystemFont, Segoe UI,
+              font-family: Barlow,-apple-system, BlinkMacSystemFont, Segoe UI,
                 Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
                 sans-serif;
                 background-color:#333;
