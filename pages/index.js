@@ -22,6 +22,10 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import CardHeader from '@material-ui/core/CardHeader';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreSharpIcon from '@material-ui/icons/ExpandMoreSharp';
 
 /* TODO
   1. Format into  /modules
@@ -64,6 +68,14 @@ const darkTheme = createMuiTheme({
         contrastText: '#ffffff',
       },
     },
+    typography: {
+      fontFamily: [
+        '"Barlow"',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif'
+      ].join(','),
+     },
 });
 
 const FetchData = () => {
@@ -92,10 +104,7 @@ const FetchData = () => {
       fontSize:darkTheme.typography.pxToRem(13),
       padding:'10px'
     },
-    typographyStyles: {
-      fontfamily:"Barlow",
-      fontSize:darkTheme.typography.pxToRem(15),
-    },
+
     MuiCardMediaimg: {
       width:"auto",
       height:"96px"
@@ -127,7 +136,7 @@ const FetchData = () => {
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
             {data.type? 
-              `Your browser is ${data.type}`
+              `We think Your browser is ${data.type} if this is not correct, please submit below.`
              : null
              }
               
@@ -225,6 +234,7 @@ export default function Home() {
             />
             {bootstrap()}
           </Head>
+          <Box mb={5.5} mt={3.5} >
           <Paper elevation={3} m={0.5} variant="outlined">
         
             {!isServer ? (
@@ -234,24 +244,22 @@ export default function Home() {
             ) : null}
        
           </Paper>
-          <Box mb={2.5} mt={2.5} pb={2.5}>
+          </Box>
+         
           <Paper elevation={3} m={0.5}>
-
-            <Typography gutterBottom variant="h5"  component="h2">
-              Additional Tests: Local Storage
-            </Typography>
-            {!isServer ? (
-              <Suspense fallback={<div>loading...</div>}>
-                <CheckLocalStorage></CheckLocalStorage>
-              </Suspense>
-            ) : null}
-            </Paper>
-            </Box>
-          <Paper elevation={3} m={0.5}>
-          <Typography gutterBottom variant="h5" component="h2">
+          <ExpansionPanel>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreSharpIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+           <Typography gutterBottom variant="h5" component="h2">
               Supported Features
             </Typography>
-          <ul className="featureList">
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          
+        <ul className="featureList">
             <li className="MessageChannel">MessageChannel</li>
             <li className="adownload">adownload</li>
             <li className="ambientlight">ambientlight</li>
@@ -555,13 +563,39 @@ export default function Home() {
             <li className="testprop">testprop</li>
             <li className="teststyles">teststyles</li>
           </ul>
-          </Paper>
-          `
+        
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+
+         </Paper>
+         <Box mb={5.5} mt={5.5} >
+          <ExpansionPanel>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreSharpIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+           <Typography gutterBottom variant="h6"  component="h5">
+              Additional Tests: Local Storage
+            </Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <Paper elevation={3} m={0.5}>
+      
+            {!isServer ? (
+              <Suspense fallback={<div>loading...</div>}>
+                <CheckLocalStorage></CheckLocalStorage>
+              </Suspense>
+            ) : null}
+            </Paper>
+            </ExpansionPanelDetails>
+            </ExpansionPanel>
+            </Box>
           <style jsx>{`
              :global(ul.featureList) {
-              -webkit-column-count: 3;
-              -moz-column-count: 3;
-              column-count: 3;
+              -webkit-column-count: 2;
+              -moz-column-count: 2;
+              column-count: 2;
               padding:10px;
               font-size:0.5 rem;
             }
@@ -574,6 +608,7 @@ export default function Home() {
               background-position: left center;
               background-size: 20px;     
               color: #8dc891;
+              font-size:10px;
             
             }
             :global(.no-MessageChannel li.MessageChannel) {
