@@ -26,6 +26,8 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreSharpIcon from '@material-ui/icons/ExpandMoreSharp';
+import { FirebaseAppProvider, useFirestoreDocData, useFirestore, SuspenseWithPerf, useDatabase, useFirestoreDocDataOnce } from 'reactfire';
+
 
 /* TODO
   1. Format into  /modules
@@ -48,6 +50,20 @@ const dateFormat = () => {
     d.getMinutes();
   return datestring;
 };
+
+/* lib/config */
+const firebaseConfig = {
+  apiKey: "AIzaSyC-RMsVdcxkkqKluQXdaa3OPlY6EAZlXrw",
+    authDomain: "inapptest-279a2.firebaseapp.com",
+    databaseURL: "https://inapptest-279a2.firebaseio.com",
+    projectId: "inapptest-279a2",
+    storageBucket: "inapptest-279a2.appspot.com",
+    messagingSenderId: "514681448098",
+    appId: "1:514681448098:web:3cbd45fb8ac4f33b7d99fb",
+    measurementId: "G-M317QDS9BM"
+ };
+
+
 
 /* util/themes */
 const isServer = typeof window === "undefined";
@@ -77,6 +93,8 @@ const darkTheme = createMuiTheme({
       ].join(','),
      },
 });
+
+
 
 const FetchData = () => {
   const identifyUAApi = !isServer
@@ -119,7 +137,7 @@ const FetchData = () => {
     <ThemeProvider theme={darkTheme}>
     <ThemeProvider theme={lightTheme}>
     <Box mb={2.5}>
-    <Paper boxShadow={25} elevation={10}>
+    <Paper elevation={10}>
 
       <Card >
         <CardActionArea>
@@ -160,7 +178,7 @@ const FetchData = () => {
           label="Standard"
           value={data.ua}
         />
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={() => { packageandSend() }} >
           Submit your user-agent
         </Button>
       </form>
@@ -171,6 +189,21 @@ const FetchData = () => {
   );
 };
 
+const RetreiveUADetails = () => {
+  const uaRef = useFirestore()
+  .collection('browsers')
+  .doc('capabilities');
+
+  const subscribeUADetails = useFirestoreDocData(uaRef);
+  console.log(subscribeUADetails)
+  const storedData = subscribeUADetails.uaDetails;
+  return(
+    <>
+  {storedData}
+  </>
+  )
+
+}
 const CheckLocalStorage = () => {
   const localStorageResult = Modernizr.localstorage;
   if (process.browser && Modernizr.localstorage) {
@@ -203,21 +236,36 @@ const CheckLocalStorage = () => {
   }
 };
 
+
 const bootstrap = () => {
+  // const FBDatabase = useDatabase();
+//const FBRef = FBDatabase.ref("browser/capabilities");
   try {
     if (process.browser && Modernizr) {
-      for (var i = 0; i < Modernizr._q.length; i++) {
-        console.log(Modernizr._q[i]);
-        Modernizr._q[i]();
-      }
+      /* TODO: This can be via Modernizr's own API */
+      const featureDetectClasses = document.getElementsByTagName("html")[0].getAttribute("class");
+        let noFeaturesArray = featureDetectClasses.split(" ").filter(noFeature => noFeature.indexOf("no-") > -1); 
+        return noFeaturesArray;
     }
   } catch (e) {
     console.log("Error occured in running Modernizr tests", e);
   }
 };
 
+let bootstrapData = bootstrap() ;
+
+
+
+const packageandSend = () => {
+
+  FBRef.push().set(bootstrapData);
+
+}
+
 export default function Home() {
   return (
+    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+
     <ThemeProvider theme={darkTheme}>
       <Container maxWidth="xl">
         <div className="container">
@@ -257,7 +305,7 @@ export default function Home() {
               Supported Features
             </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        <ExpansionPanelDetails pt={100}>
           
         <ul className="featureList">
             <li className="MessageChannel">MessageChannel</li>
@@ -565,9 +613,35 @@ export default function Home() {
           </ul>
         
         </ExpansionPanelDetails>
+    
       </ExpansionPanel>
-
-         </Paper>
+ 
+      </Paper>
+      <Box mb={5.5} mt={5.5} >
+      <ExpansionPanel>
+      <ExpansionPanelSummary
+          expandIcon={<ExpandMoreSharpIcon />}
+          aria-controls="panel3a-content"
+          id="panel3a-header"
+        >
+          <Typography gutterBottom variant="h5" component="h2">
+             Entries in the Database
+            </Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails pt={100}>
+        {!isServer ? (
+        
+        <SuspenseWithPerf
+        fallback={'loading capabilities status...'}
+        traceId={'load-capabilities-status'}
+      >
+        
+        <RetreiveUADetails/>
+      </SuspenseWithPerf>
+          ) : null}
+          </ExpansionPanelDetails>
+          </ExpansionPanel>
+          </Box>
          <Box mb={5.5} mt={5.5} >
           <ExpansionPanel>
         <ExpansionPanelSummary
@@ -597,6 +671,7 @@ export default function Home() {
               -moz-column-count: 2;
               column-count: 2;
               padding:10px;
+              margin-top:10px;
               font-size:0.5 rem;
             }
             :global(ul.featureList li) {
@@ -1828,5 +1903,6 @@ background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
         </div>
       </Container>
     </ThemeProvider>
+  </FirebaseAppProvider>
   );
 }
