@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React from "react";
+import React,{ useState } from "react";
 import Input from "@material-ui/core/Input";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Modernizr from "modernizr"; // eslint-disable-line no-unused-vars
@@ -26,8 +26,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreSharpIcon from '@material-ui/icons/ExpandMoreSharp';
-import { FirebaseAppProvider, useFirestoreDocData, useFirestore, SuspenseWithPerf, useDatabase, useFirestoreDocDataOnce } from 'reactfire';
-
+import db from '../services/firebaseservice';
 
 /* TODO
   1. Format into  /modules
@@ -51,17 +50,7 @@ const dateFormat = () => {
   return datestring;
 };
 
-/* lib/config */
-const firebaseConfig = {
-  apiKey: "AIzaSyC-RMsVdcxkkqKluQXdaa3OPlY6EAZlXrw",
-    authDomain: "inapptest-279a2.firebaseapp.com",
-    databaseURL: "https://inapptest-279a2.firebaseio.com",
-    projectId: "inapptest-279a2",
-    storageBucket: "inapptest-279a2.appspot.com",
-    messagingSenderId: "514681448098",
-    appId: "1:514681448098:web:3cbd45fb8ac4f33b7d99fb",
-    measurementId: "G-M317QDS9BM"
- };
+
 
 
 
@@ -94,12 +83,12 @@ const darkTheme = createMuiTheme({
      },
 });
 
-
+const identifyUAApi = !isServer
+? `https://api.userstack.com/detect?access_key=01ebd9c577763f1efbff8739fe93026f&ua=${navigator.userAgent}`
+: null;
 
 const FetchData = () => {
-  const identifyUAApi = !isServer
-    ? `https://api.userstack.com/detect?access_key=01ebd9c577763f1efbff8739fe93026f&ua=${navigator.userAgent}`
-    : null;
+
 
   console.log(identifyUAApi);
   const useStyles = makeStyles({
@@ -178,7 +167,7 @@ const FetchData = () => {
           label="Standard"
           value={data.ua}
         />
-        <Button variant="contained" color="primary" onClick={() => { packageandSend() }} >
+        <Button variant="contained" color="primary" onClick={() => { packageandSend(data) }} >
           Submit your user-agent
         </Button>
       </form>
@@ -190,18 +179,18 @@ const FetchData = () => {
 };
 
 const RetreiveUADetails = () => {
-  const uaRef = useFirestore()
-  .collection('browsers')
-  .doc('capabilities');
+  // const uaRef = useFirestore()
+  // .collection('browsers')
+  // .doc('capabilities');
 
-  const subscribeUADetails = useFirestoreDocData(uaRef);
-  console.log(subscribeUADetails)
-  const storedData = subscribeUADetails.uaDetails;
-  return(
-    <>
-  {storedData}
-  </>
-  )
+  // const subscribeUADetails = useFirestoreDocData(uaRef);
+  // console.log(subscribeUADetails)
+  // const storedData = subscribeUADetails.uaDetails;
+  // return(
+  //   <>
+  // {storedData}
+  // </>
+ // )
 
 }
 const CheckLocalStorage = () => {
@@ -237,15 +226,19 @@ const CheckLocalStorage = () => {
 };
 
 
-const bootstrap = () => {
-  // const FBDatabase = useDatabase();
-//const FBRef = FBDatabase.ref("browser/capabilities");
+const bootstrap = (ua) => {
+
   try {
     if (process.browser && Modernizr) {
       /* TODO: This can be via Modernizr's own API */
       const featureDetectClasses = document.getElementsByTagName("html")[0].getAttribute("class");
         let noFeaturesArray = featureDetectClasses.split(" ").filter(noFeature => noFeature.indexOf("no-") > -1); 
-        return noFeaturesArray;
+        let noFeaturesObject  = {}
+        noFeaturesObject["fd"] = Object.assign({},noFeaturesArray)
+        noFeaturesObject["time"] = Date.now(),
+        noFeaturesObject["ua"]  = ua
+      
+        return noFeaturesObject;
     }
   } catch (e) {
     console.log("Error occured in running Modernizr tests", e);
@@ -256,15 +249,15 @@ let bootstrapData = bootstrap() ;
 
 
 
-const packageandSend = () => {
-
-  FBRef.push().set(bootstrapData);
-
+const packageandSend = (ua) => {
+  let setDoc = db.collection('browsers')
+  .add(bootstrap(ua)).then (ref => {
+    console.log("Added document with ID:", ref.id);
+  })
 }
 
 export default function Home() {
   return (
-    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
 
     <ThemeProvider theme={darkTheme}>
       <Container maxWidth="xl">
@@ -280,7 +273,7 @@ export default function Home() {
               rel="stylesheet"
               href="https://fonts.googleapis.com/icon?family=Material+Icons"
             />
-            {bootstrap()}
+           
           </Head>
           <Box mb={5.5} mt={3.5} >
           <Paper elevation={3} m={0.5} variant="outlined">
@@ -629,16 +622,7 @@ export default function Home() {
             </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails pt={100}>
-        {!isServer ? (
         
-        <SuspenseWithPerf
-        fallback={'loading capabilities status...'}
-        traceId={'load-capabilities-status'}
-      >
-        
-        <RetreiveUADetails/>
-      </SuspenseWithPerf>
-          ) : null}
           </ExpansionPanelDetails>
           </ExpansionPanel>
           </Box>
@@ -1903,6 +1887,5 @@ background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg")
         </div>
       </Container>
     </ThemeProvider>
-  </FirebaseAppProvider>
   );
 }
