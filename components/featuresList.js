@@ -5,7 +5,7 @@ export const FeaturesList = (props) => {
         return [     
         <StyledGlobalClasses/>,
         <ul className="featureList">
-        <li className="MessageChannel">MessageChannel</li>
+        <li key={this}  className="MessageChannel">MessageChannel</li>
         <li className="adownload">adownload</li>
         <li className="ambientlight">ambientlight</li>
         <li className="animation">animation</li>
