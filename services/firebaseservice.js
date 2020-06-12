@@ -1,4 +1,5 @@
-import * as firebase from "firebase";
+import firebase from 'firebase/app';
+import firestore from "firebase/firestore";
 
 
 /* lib/config */
@@ -12,6 +13,7 @@ const firebaseConfig = {
       appId: "1:514681448098:web:3cbd45fb8ac4f33b7d99fb",
       measurementId: "G-M317QDS9BM"
    };
-
-export default !firebase.apps.length ?  firebase.initializeApp(firebaseConfig).firestore()
-: firebase.app().firestore();
+  const firebaseApp =  !firebase.apps.length ?  firebase.initializeApp(firebaseConfig)
+  : firebase.app();
+  const inAppFirestore = firebaseApp.firestore();
+export default inAppFirestore;
