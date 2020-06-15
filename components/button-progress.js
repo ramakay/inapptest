@@ -50,7 +50,7 @@ let done = false;
     [classes.buttonSuccess]: success,
   });
   React.useEffect(() => {
-    console.log("UASTATEFROMBUTTON", props.uAState)
+    
     if(props.uAState) {
       setSuccess(true);
       setLoading(false);
@@ -66,7 +66,7 @@ let done = false;
       setSuccess(false);
       setLoading(true);
       props.onChange();
-      console.log("UASTATE", props.uAState)
+      
     }
   };
 
@@ -84,7 +84,6 @@ let done = false;
         {loading && <CircularProgress size={68} className={classes.fabProgress} />}
       </div> */}
       <div className={classes.wrapper}>
-        {console.log("DONEBUTTON",done)}
         <Button
           variant="contained"
           color="primary"
