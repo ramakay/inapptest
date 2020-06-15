@@ -30,6 +30,7 @@ import CircularIntegration from "../components/button-progress";
 import { Header } from "../components/header";
 import { FeaturesList } from "../components/featuresList";
 
+
 /* TODO
   1. Format into  /modules
   2. Constants
@@ -75,7 +76,7 @@ const RetreiveUADetails = () => {
   // {storedData}
   // </>
   // )
-};
+}; 
 const CheckLocalStorage = () => {
   const localStorageResult = Modernizr.localstorage;
   if (process.browser && Modernizr.localstorage) {
@@ -94,7 +95,6 @@ const CheckLocalStorage = () => {
           )
         : null;
     ``;
-    console.log(localStorageItem, "<<<<");
 
     return (
       <>
@@ -109,8 +109,10 @@ const CheckLocalStorage = () => {
 };
 
 const bootstrap = (ua) => {
+  
   try {
     if (process.browser && Modernizr) {
+ 
       /* TODO: This can be via Modernizr's own API */
       const featureDetectClasses = document
         .getElementsByTagName("html")[0]
@@ -170,7 +172,6 @@ export default function Home() {
 const MyContext = React.createContext(null);
 
   const FetchData = () => {
-    console.log(identifyUAApi);
 
     const { data } = useSWR(identifyUAApi, fetcher, { suspense: true });
 
@@ -233,6 +234,7 @@ const MyContext = React.createContext(null);
               rel="stylesheet"
               href="https://fonts.googleapis.com/icon?family=Material+Icons"
             />
+            <script type="text/javascript" src="js/fTwelve.js"></script>
           </Head>
 
           <Box mb={5.5} mt={3.5}>
@@ -258,6 +260,31 @@ const MyContext = React.createContext(null);
               </ExpansionPanelSummary>
               <ExpansionPanelDetails pt={100}>
                 <FeaturesList />
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          </Paper>
+
+          <Paper elevation={3} m={0.5}>
+            <ExpansionPanel onChange={() => {
+                   fTwelve.enable({show: true});
+                   try{
+                    document.querySelector("#f-twelve").childNodes[0].click();
+                   }
+                   catch(e){
+                     console.log("Couldnt show console");
+                   }
+                  }}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreSharpIcon />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <Typography gutterBottom variant="h5" component="h2">
+                  Console
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails pt={100}>
+                
               </ExpansionPanelDetails>
             </ExpansionPanel>
           </Paper>
@@ -301,4 +328,5 @@ const MyContext = React.createContext(null);
       </Container>
     </ThemeProvider>
   );
+  
 }
