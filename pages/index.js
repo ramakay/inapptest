@@ -25,11 +25,11 @@ import db from "../services/firebaseservice";
 import { dateFormat } from "../utils/formatters";
 import { lightTheme, darkTheme } from "../style/theme";
 import CircularIntegration from "../components/button-progress";
+import MaterialTable from "material-table";
 
 /* Components */
 import { Header } from "../components/header";
 import { FeaturesList } from "../components/featuresList";
-
 
 /* TODO
   1. Format into  /modules
@@ -63,20 +63,65 @@ const reducer = (state, action) => {
   }
 };
 
+function RetreiveUADetails() {
+  let collectionDocs = [];
+  const [dataTable, setDatatable] = React.useState([]);
 
-const RetreiveUADetails = () => {
-  // const uaRef = useFirestore()
-  // .collection('browsers')
-  // .doc('capabilities');
-  // const subscribeUADetails = useFirestoreDocData(uaRef);
-  // console.log(subscribeUADetails)
-  // const storedData = subscribeUADetails.uaDetails;
-  // return(
-  //   <>
-  // {storedData}
-  // </>
-  // )
-}; 
+  React.useEffect(() => {
+    const fetchData = (async () => {
+      const uARef = db.collection("browsers");
+      const snapshot = await uARef.get();
+      if (snapshot.empty) {
+        console.log("nothing");
+        return;
+      }
+      //   snapshot.forEach(doc => {
+      //     setDatatable(...dataTable,doc.data());
+      //  });
+      let fieldData = [];
+      snapshot.forEach((doc) => {
+        const formattedData = {
+          fd: Object.values(doc.data().fd).toString(),
+          ua: doc.data().ua,
+        };
+        fieldData.push(formattedData);
+      });
+      setDatatable(...dataTable, fieldData);
+    })();
+  }, []);
+
+  return (
+    <div>
+      {dataTable && (
+        <MaterialTable
+          title=" "
+          columns={[
+            {
+              title: "User agent",
+              grouping: false,
+              field: "ua",
+              render: (rowData) => (
+                <img src={rowData.ua.os.icon_large} style={{ width: 70 }} />
+              ),
+            },
+            {
+              title: "Browser",
+              field: "ua.browser.name",
+              defaultGroupOrder: 0,
+            },
+            { title: "Unavailable features", grouping: false, field: "fd" },
+          ]}
+          options={{
+            grouping: true,
+            pageSize: 10,
+          }}
+          data={dataTable}
+        />
+      )}
+    </div>
+  );
+}
+
 const CheckLocalStorage = () => {
   const localStorageResult = Modernizr.localstorage;
   if (process.browser && Modernizr.localstorage) {
@@ -109,10 +154,8 @@ const CheckLocalStorage = () => {
 };
 
 const bootstrap = (ua) => {
-  
   try {
     if (process.browser && Modernizr) {
- 
       /* TODO: This can be via Modernizr's own API */
       const featureDetectClasses = document
         .getElementsByTagName("html")[0]
@@ -133,19 +176,16 @@ const bootstrap = (ua) => {
 
 let bootstrapData = bootstrap();
 
-
 const PackageandSend = (props) => {
-
   const handleDone = () => {
     props.setuAState(true);
-  }
-
+  };
 
   useEffect(() => {
-    if(props.uAState===true) {
-        handleDone()
-    } 
-   });
+    if (props.uAState === true) {
+      handleDone();
+    }
+  });
 
   const sendData = () => {
     let setDoc = db
@@ -153,26 +193,31 @@ const PackageandSend = (props) => {
       .add(bootstrap(props.ua))
       .then((ref) => {
         console.log("Added document with ID:", ref.id);
-        props.setuAState(true)
+        props.setuAState(true);
       });
   };
   const label = "Submit your user agent";
   return (
     <>
-    <CircularIntegration onChange={() => { sendData() }} onDone={false}  uAState={props.uAState} btnLabel={props.btnLabel} />
-  
-  </>
-  )
+      <CircularIntegration
+        onChange={() => {
+          sendData();
+        }}
+        onDone={false}
+        uAState={props.uAState}
+        btnLabel={props.btnLabel}
+      />
+    </>
+  );
 };
 
 export default function Home() {
   const [uAState, setuAState] = React.useState(false);
   const [formState, setFormState] = useState(true);
   const [uaSubmitState, dispatch] = React.useReducer(reducer, initialState);
-const MyContext = React.createContext(null);
+  const MyContext = React.createContext(null);
 
   const FetchData = () => {
-
     const { data } = useSWR(identifyUAApi, fetcher, { suspense: true });
 
     return (
@@ -185,7 +230,7 @@ const MyContext = React.createContext(null);
             <Paper elevation={3}>
               <form noValidate autoComplete="off">
                 <Typography gutterBottom variant="h5" component="h2">
-                  Incorrect?
+                  Incorrect? <RetreiveUADetails />
                 </Typography>
                 <TextareaAutosize
                   rowsMax={5}
@@ -202,14 +247,25 @@ const MyContext = React.createContext(null);
                   }}
                 >
                   Submit your user-agent
-                </Button> */}
-                  <>
-              { !uAState ? 
-                <PackageandSend ua={data} uAState={uAState} setuAState={setuAState} btnLabel={'Submit your user agent'} />
-                :
-                <PackageandSend ua={data} uAState={uAState} setuAState={setuAState} disabled={true} btnLabel={'Thanks'} />
-              }
-              </>
+                </Bu send yeah so you know I ate a here that I think whatever we can get some between a combination of in video plus dynamic year kind of providing that kind of an implementation because through DD we definitely do not be able to afford it needs it on kind of like a set up in the system and   tton> */}
+                <>
+                  {!uAState ? (
+                    <PackageandSend
+                      ua={data}
+                      uAState={uAState}
+                      setuAState={setuAState}
+                      btnLabel={"Submit your user agent"}
+                    />
+                  ) : (
+                    <PackageandSend
+                      ua={data}
+                      uAState={uAState}
+                      setuAState={setuAState}
+                      disabled={true}
+                      btnLabel={"Thanks"}
+                    />
+                  )}
+                </>
               </form>
             </Paper>
             <div>{/* {JSON.stringify(data)} */}</div>
@@ -265,15 +321,16 @@ const MyContext = React.createContext(null);
           </Paper>
 
           <Paper elevation={3} m={0.5}>
-            <ExpansionPanel onChange={() => {
-                   fTwelve.enable({show: true});
-                   try{
-                    document.querySelector("#f-twelve").childNodes[0].click();
-                   }
-                   catch(e){
-                     console.log("Couldnt show console");
-                   }
-                  }}>
+            <ExpansionPanel
+              onChange={() => {
+                fTwelve.enable({ show: true });
+                try {
+                  document.querySelector("#f-twelve").childNodes[0].click();
+                } catch (e) {
+                  console.log("Couldnt show console");
+                }
+              }}
+            >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreSharpIcon />}
                 aria-controls="panel2a-content"
@@ -283,9 +340,7 @@ const MyContext = React.createContext(null);
                   Console
                 </Typography>
               </ExpansionPanelSummary>
-              <ExpansionPanelDetails pt={100}>
-                
-              </ExpansionPanelDetails>
+              <ExpansionPanelDetails pt={100}></ExpansionPanelDetails>
             </ExpansionPanel>
           </Paper>
           <Box mb={5.5} mt={5.5}>
@@ -328,5 +383,4 @@ const MyContext = React.createContext(null);
       </Container>
     </ThemeProvider>
   );
-  
 }
