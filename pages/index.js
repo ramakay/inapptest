@@ -75,9 +75,6 @@ function RetreiveUADetails() {
         console.log("nothing");
         return;
       }
-      //   snapshot.forEach(doc => {
-      //     setDatatable(...dataTable,doc.data());
-      //  });
       let fieldData = [];
       snapshot.forEach((doc) => {
         const formattedData = {
@@ -92,7 +89,7 @@ function RetreiveUADetails() {
 
   return (
     <div>
-      {dataTable && (
+      {!isServer && dataTable && (
         <MaterialTable
           title=" "
           columns={[
