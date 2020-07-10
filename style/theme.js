@@ -45,6 +45,9 @@ export const appStyles = makeStyles({
     width: "100%",
     padding: "10px",
   },
+  nestedMui: {
+    display:"block !important",
+  },
 
   MuiCardMediaimg: {
   width: "auto !important",

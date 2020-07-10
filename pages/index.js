@@ -17,9 +17,9 @@ import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreSharpIcon from "@material-ui/icons/ExpandMoreSharp";
 import db from "../services/firebaseservice";
 import { dateFormat } from "../utils/formatters";
@@ -79,6 +79,7 @@ function RetreiveUADetails() {
       snapshot.forEach((doc) => {
         const formattedData = {
           fd: Object.values(doc.data().fd).toString(),
+          //fd: Object.values(doc.data().fd),
           ua: doc.data().ua,
         };
         fieldData.push(formattedData);
@@ -91,7 +92,7 @@ function RetreiveUADetails() {
     <div>
       {!isServer && dataTable && (
         <MaterialTable
-          title=" "
+          title="Current Submissions"
           columns={[
             {
               title: "User agent",
@@ -111,6 +112,7 @@ function RetreiveUADetails() {
           options={{
             grouping: true,
             pageSize: 10,
+            showTitle: false,
           }}
           data={dataTable}
         />
@@ -193,7 +195,7 @@ const PackageandSend = (props) => {
         props.setuAState(true);
       });
   };
-  const label = "Submit your user agent";
+  const label = "Contribute your user agent data";
   return (
     <>
       <CircularIntegration
@@ -226,9 +228,11 @@ export default function Home() {
             </ThemeProvider>
             <Paper elevation={3}>
               <form noValidate autoComplete="off">
-                <Typography gutterBottom variant="h5" component="h2">
-                  Incorrect? <RetreiveUADetails />
-                </Typography>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                ></Typography>
                 <TextareaAutosize
                   rowsMax={5}
                   className={appStyles().uaTextArea}
@@ -236,22 +240,13 @@ export default function Home() {
                   label="Standard"
                   value={data.ua}
                 />
-                {/* <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    packageandSend(data);
-                  }}
-                >
-                  Submit your user-agent
-                </Bu send yeah so you know I ate a here that I think whatever we can get some between a combination of in video plus dynamic year kind of providing that kind of an implementation because through DD we definitely do not be able to afford it needs it on kind of like a set up in the system and   tton> */}
                 <>
                   {!uAState ? (
                     <PackageandSend
                       ua={data}
                       uAState={uAState}
                       setuAState={setuAState}
-                      btnLabel={"Submit your user agent"}
+                      btnLabel={"Contribute your user agent data "}
                     />
                   ) : (
                     <PackageandSend
@@ -301,81 +296,103 @@ export default function Home() {
           </Box>
 
           <Paper elevation={3} m={0.5}>
-            <ExpansionPanel>
-              <ExpansionPanelSummary
+            <Accordion expanded={true} width="100%">
+              <AccordionSummary
                 expandIcon={<ExpandMoreSharpIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                aria-controls="panel0a-content"
+                id="panel0a-header"
               >
                 <Typography gutterBottom variant="h5" component="h2">
-                  Supported Features
+                  Your browser
                 </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails pt={100}>
-                <FeaturesList />
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionSummary>
+              <AccordionDetails pt={100} width="100%" className={appStyles().nestedMui} >
+                <div style={{ width: 100 + "%" }}>
+                  <Accordion width="100%">
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreSharpIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Supported Features
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails pt={100}>
+                      <div style={{ width: 100 + "%" }}>
+                        <FeaturesList />
+                      </div>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+                <div style={{ width: 100 + "%" }}>
+                  <Accordion width="100%">
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreSharpIcon />}
+                      aria-controls="panel2a-content"
+                      id="panel2a-header"
+                    >
+                      <Typography gutterBottom variant="h6" component="h5">
+                        Additional Tests: Local Storage
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Paper elevation={3} m={0.5}>
+                        {!isServer ? (
+                          <Suspense fallback={<div>loading...</div>}>
+                            <CheckLocalStorage></CheckLocalStorage>
+                          </Suspense>
+                        ) : null}
+                      </Paper>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+
+                <Accordion
+                  onChange={() => {
+                    fTwelve.enable({ show: true });
+                    try {
+                      document.querySelector("#f-twelve").childNodes[0].click();
+                    } catch (e) {
+                      console.log("Couldnt show console");
+                    }
+                  }}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreSharpIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Console
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails pt={100}></AccordionDetails>
+                </Accordion>
+              </AccordionDetails>
+            </Accordion>
           </Paper>
 
-          <Paper elevation={3} m={0.5}>
-            <ExpansionPanel
-              onChange={() => {
-                fTwelve.enable({ show: true });
-                try {
-                  document.querySelector("#f-twelve").childNodes[0].click();
-                } catch (e) {
-                  console.log("Couldnt show console");
-                }
-              }}
-            >
-              <ExpansionPanelSummary
-                expandIcon={<ExpandMoreSharpIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Typography gutterBottom variant="h5" component="h2">
-                  Console
-                </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails pt={100}></ExpansionPanelDetails>
-            </ExpansionPanel>
-          </Paper>
+          <Paper elevation={3} m={0.5}></Paper>
           <Box mb={5.5} mt={5.5}>
-            <ExpansionPanel>
-              <ExpansionPanelSummary
+            <Accordion expanded={true}>
+              <AccordionSummary
                 expandIcon={<ExpandMoreSharpIcon />}
                 aria-controls="panel3a-content"
                 id="panel3a-header"
               >
                 <Typography gutterBottom variant="h5" component="h2">
-                  Entries in the Database
+                  Current Submissions
                 </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails pt={100}></ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionSummary>
+              <AccordionDetails pt={100}>
+                <div style={{ width: 100 + "%" }}>
+                  <RetreiveUADetails />
+                </div>
+              </AccordionDetails>
+            </Accordion>
           </Box>
-          <Box mb={5.5} mt={5.5}>
-            <ExpansionPanel>
-              <ExpansionPanelSummary
-                expandIcon={<ExpandMoreSharpIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Typography gutterBottom variant="h6" component="h5">
-                  Additional Tests: Local Storage
-                </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <Paper elevation={3} m={0.5}>
-                  {!isServer ? (
-                    <Suspense fallback={<div>loading...</div>}>
-                      <CheckLocalStorage></CheckLocalStorage>
-                    </Suspense>
-                  ) : null}
-                </Paper>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          </Box>
+          <Box mb={5.5} mt={5.5}></Box>
         </div>
       </Container>
     </ThemeProvider>
