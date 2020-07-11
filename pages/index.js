@@ -66,7 +66,24 @@ const reducer = (state, action) => {
 function RetreiveUADetails() {
   let collectionDocs = [];
   const [dataTable, setDatatable] = React.useState([]);
+  const formatList = (obj) => {
+    
+    const listString = Object.values(obj).map((item, key) => {
+      const noItemClassStr = item.replace('no-','');
+      const classStr = `${noItemClassStr} ${item}`;
+      return(
+      <li className={classStr} key={key}>{item}</li>
+      )
+    }
 
+   
+);
+    return (
+      <ul className="featureList featureListNone">
+        {listString}
+      </ul>
+    )
+  }
   React.useEffect(() => {
     const fetchData = (async () => {
       const uARef = db.collection("browsers");
@@ -75,10 +92,12 @@ function RetreiveUADetails() {
         console.log("nothing");
         return;
       }
+
       let fieldData = [];
       snapshot.forEach((doc) => {
         const formattedData = {
-          fd: Object.values(doc.data().fd).toString(),
+          fd:formatList(doc.data().fd),
+          //fd: Object.values(doc.data().fd).toString(),
           //fd: Object.values(doc.data().fd),
           ua: doc.data().ua,
         };

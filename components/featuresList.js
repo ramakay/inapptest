@@ -1,11 +1,13 @@
 
 import {StyledGlobalClasses} from '../style/theme';
-
+const getRandomInt = (max) => {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 export const FeaturesList = (props) => {
         return [     
         <StyledGlobalClasses/>,
         <ul className="featureList">
-        <li key={this}  className="MessageChannel">MessageChannel</li>
+        <li  className="MessageChannel">MessageChannel</li>
         <li className="adownload">adownload</li>
         <li className="ambientlight">ambientlight</li>
         <li className="animation">animation</li>

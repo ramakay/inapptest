@@ -94,6 +94,12 @@ export const StyledGlobalClasses = () => {
           color: #8dc891;
           font-size: 10px;
         }
+      
+        :global(ul.featureList.featureListNone li) {
+          background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg") !important;
+          color: #f48fb1;
+          background-position-y:4px;
+        }
         :global(.no-MessageChannel li.MessageChannel) {
           color: #f48fb1;
           background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg");
@@ -1110,6 +1116,10 @@ export const StyledGlobalClasses = () => {
           background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg");
         }
         :global(.no-vibrate li.vibrate) {
+          color: #f48fb1;
+          background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg");
+        }
+        :global(.no-video li.video) {
           color: #f48fb1;
           background-image: url("https://s.w.org/images/core/emoji/11/svg/274c.svg");
         }
