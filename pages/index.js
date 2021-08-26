@@ -10,7 +10,6 @@ import dynamic from "next/dynamic";
 //   ssr: false
 // }) 
 
-
 import { Suspense } from "react";
 import fetcher from "../lib/fetch";
 import useSWR from "swr";import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
@@ -29,12 +28,13 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreSharpIcon from "@material-ui/icons/ExpandMoreSharp";
-import db from "../services/firebaseservice";
+import firedb from "../services/firebaseservice";
 import { dateFormat } from "../utils/formatters";
 import { lightTheme, darkTheme } from "../style/theme";
 import CircularIntegration from "../components/button-progress";
 import MaterialTable from "material-table";
 
+const db = firedb.firestore();
 /* Components */
 import { Header } from "../components/header";
 import { FeaturesList } from "../components/featuresList";
