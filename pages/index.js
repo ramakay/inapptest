@@ -1,11 +1,18 @@
 import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import Modernizr from "modernizr"; // eslint-disable-line no-unused-vars
+//import dynamic from "next/dynamic"
+// const { default: Modernizr } = await import('modernizr');
+
+import dynamic from "next/dynamic";
+
+// const Modernizr = dynamic(() => import('modernizr').then((module) => module.NamedExport),{
+//   ssr: false
+// }) 
+
 import { Suspense } from "react";
 import fetcher from "../lib/fetch";
-import useSWR from "swr";
-import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import useSWR from "swr";import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { appStyles } from "../style/theme";
 
@@ -21,12 +28,13 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreSharpIcon from "@material-ui/icons/ExpandMoreSharp";
-import db from "../services/firebaseservice";
+import firedb from "../services/firebaseservice";
 import { dateFormat } from "../utils/formatters";
 import { lightTheme, darkTheme } from "../style/theme";
 import CircularIntegration from "../components/button-progress";
 import MaterialTable from "material-table";
 
+const db = firedb.firestore();
 /* Components */
 import { Header } from "../components/header";
 import { FeaturesList } from "../components/featuresList";
@@ -37,6 +45,7 @@ import { FeaturesList } from "../components/featuresList";
 */
 
 /* util/themes */
+// const isServer = typeof window === "undefined";
 const isServer = typeof window === "undefined";
 const identifyUAApi = !isServer
   ? `https://api.userstack.com/detect?access_key=01ebd9c577763f1efbff8739fe93026f&ua=${navigator.userAgent}`
@@ -142,6 +151,7 @@ function RetreiveUADetails() {
 
 const CheckLocalStorage = () => {
   const localStorageResult = Modernizr.localstorage;
+  console.log("localStorageResult =>",localStorageResult);
   if (process.browser && Modernizr.localstorage) {
     const localStorageGetItem =
       window.localStorage.getItem("returnValue5") === null
